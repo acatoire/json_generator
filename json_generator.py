@@ -15,7 +15,7 @@ class ConfJson:
     def __init__(self, nb_string,
                  nb_obj=0, size_obj=0,
                  nb_json=0, conf=None,
-                 nb_list: int = 0, conf_lst: ConfJson = None):
+                 nb_list: int = 0, nb_list_elements: int = 0, conf_lst: ConfJson = None):
         """
         Json Object config
         :param nb_string:

@@ -37,7 +37,7 @@ def method_name(kiss: str = None, heterogeneous: bool = True):
                             json_config=ConfJson(nb_string=0,
                                                  nb_obj=0, size_obj=3,
                                                  nb_json=0, conf=ConfJson(2, 2, 2),
-                                                 nb_list=1, nb_list_elements=100, conf_lst=ConfJson(nb_string=10)),
+                                                 nb_list=1, nb_list_elements=5, conf_lst=ConfJson(nb_string=20)),
                             kiss=kiss, heterogeneous_schema=heterogeneous)
     my_json.generate_json_file(f"generation/json_one_list{kiss_str}{heterogeneous_str}.json")
     # 2_level_list
