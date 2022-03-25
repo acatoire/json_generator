@@ -30,7 +30,7 @@ if __name__ == '__main__':
                              ),
         kiss=KISS)
 
-    my_json.generate_json_file("generation/json_massive.json")
+    my_json.generate_json_file(f"generation/json_massive.json")
 
     my_json = JsonGenerator(
         name=5,
@@ -47,4 +47,4 @@ if __name__ == '__main__':
                              ),
         kiss=None)
 
-    my_json.generate_json_file("generation/json_massive_nokiss.json")
+    my_json.generate_json_file(f"generation/json_massive_nokiss.json")
