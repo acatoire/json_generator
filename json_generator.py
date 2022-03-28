@@ -2,6 +2,8 @@
 Simple json generator with complexity possibilities
 """
 from __future__ import annotations
+
+import datetime
 import json
 import random
 import time
@@ -318,6 +320,7 @@ class JsonDeepGenerator:
 
     def generate_json_file(self, path: str):
 
+        print(f"Creation of {path} at {datetime.datetime.now().strftime('%H:%M:%S')}")
         time_start = time.time()
         with open(path, mode='w', encoding='utf8') as file_handler:
             file_handler.write(json.dumps(self.json_dict))
