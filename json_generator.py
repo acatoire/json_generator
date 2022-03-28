@@ -135,12 +135,13 @@ class JsonGenerator:
         final_json_dict = {"id": id_value}
         index = 0
 
+        creation_nb_list = self.json_config.nb_list
+
         # Randomize schema if needed
         if self.heterogeneous_schema:
             creation_nb_string = self.json_config.nb_string
             creation_nb_obj = self.json_config.nb_obj
             creation_nb_json = self.json_config.nb_json
-            creation_nb_list = self.json_config.nb_list
         else:
             try:
                 creation_nb_string = random.randint(1, self.json_config.nb_string)
@@ -154,10 +155,6 @@ class JsonGenerator:
                 creation_nb_json = random.randint(1, self.json_config.nb_json)
             except ValueError:
                 creation_nb_json = self.json_config.nb_json
-            try:
-                creation_nb_list = random.randint(1, self.json_config.nb_list)
-            except ValueError:
-                creation_nb_list = self.json_config.nb_list
 
         # Create Strings
         for _ in range(creation_nb_string):
@@ -222,5 +219,6 @@ class JsonGenerator:
             file_handler.write(json.dumps(self.json_dict))
 
         time_end = time.time()
-        duration = time.strftime('%H:%M:%S', time.gmtime(time_end - time_start))
-        print(f"Creation of {path} take {duration}mn")
+        duration_s = time_end - time_start
+        duration = time.strftime('%H:%M:%S', time.gmtime(duration_s))
+        print(f"Creation of {path} take {duration} - {duration_s:0.1f}(s)")
