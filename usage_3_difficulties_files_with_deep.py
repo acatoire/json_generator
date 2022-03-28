@@ -5,19 +5,19 @@ Usage sample of json generator to create massive files
 from json_generator import ConfDeepJson, JsonDeepGenerator
 
 # Complexity 1
-C1_NB_ATTRIBUTES = 4
-C1_NB_LIST_ELEMENTS = 4
-C1_DEEP = 12
+C1_NB_ATTRIBUTES = 2
+C1_NB_LIST_ELEMENTS = 5
+C1_DEEP = 3
 
 # Complexity 2
-C2_NB_ATTRIBUTES = 4
-C2_NB_LIST_ELEMENTS = 4
-C2_DEEP = 13
+C2_NB_ATTRIBUTES = 5
+C2_NB_LIST_ELEMENTS = 20
+C2_DEEP = 10
 
 # Complexity 3
-C3_NB_ATTRIBUTES = 4
-C3_NB_LIST_ELEMENTS = 4
-C3_DEEP = 14
+C3_NB_ATTRIBUTES = 10
+C3_NB_LIST_ELEMENTS = 20
+C3_DEEP = 5
 
 
 def make_json(kiss: str = None, homogeneous: bool = True,
@@ -53,15 +53,10 @@ def make_json(kiss: str = None, homogeneous: bool = True,
            {.....},                     # nb_list_elements
         ]
     }
-
-
     """
     kiss_str = "_k" if kiss else ""
     homogeneous_str = "_ho" if homogeneous else "_he"
-
     json_file_path = f"generation/deep-A{nb_attributes}L{nb_list_elements}D{deep}{homogeneous_str}{kiss_str}.json"
-
-    print(f"Start creation of: {json_file_path}")
 
     my_json = JsonDeepGenerator(
         name=f"A{nb_attributes}L{nb_list_elements}D{deep}",
@@ -81,23 +76,23 @@ def make_3_complexity_files(homogeneous: bool = True):
         nb_list_elements=C1_NB_LIST_ELEMENTS,
         deep=C1_DEEP
     )
-#    make_json(
-#        kiss='o', homogeneous=homogeneous,
-#        nb_attributes=C2_NB_ATTRIBUTES,
-#        nb_list_elements=C2_NB_LIST_ELEMENTS,
-#        deep=C2_DEEP
-#    )
-#    make_json(
-#        kiss='o', homogeneous=homogeneous,
-#        nb_attributes=C3_NB_ATTRIBUTES,
-#        nb_list_elements=C3_NB_LIST_ELEMENTS,
-#        deep=C3_DEEP
-#    )
+    make_json(
+        kiss='o', homogeneous=homogeneous,
+        nb_attributes=C2_NB_ATTRIBUTES,
+        nb_list_elements=C2_NB_LIST_ELEMENTS,
+        deep=C2_DEEP
+    )
+    make_json(
+        kiss='o', homogeneous=homogeneous,
+        nb_attributes=C3_NB_ATTRIBUTES,
+        nb_list_elements=C3_NB_LIST_ELEMENTS,
+        deep=C3_DEEP
+    )
 
 
 if __name__ == '__main__':
 
     # Non homogeneous
-    #make_3_complexity_files(True)
+    make_3_complexity_files(True)
     # Non homogeneous
     make_3_complexity_files(False)
