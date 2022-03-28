@@ -7,6 +7,24 @@ import random
 import time
 
 
+class ConfDeepJson:
+    """
+    Json Object config
+    """
+
+    def __init__(self, nb_string,
+                 nb_list: int = 0, nb_list_elements: int = 0):
+        """
+        Json Object config
+        :param nb_string:
+        :param nb_list:
+        :param nb_list_elements:
+        """
+        self.nb_string = nb_string
+        self.nb_list = nb_list
+        self.nb_list_elements = 0 if not nb_list else nb_list_elements
+
+
 class ConfJson:
     """
     Json Object config
@@ -202,6 +220,92 @@ class JsonGenerator:
                 new_json = JsonGenerator(
                     name=f"{self.name}{index}",
                     json_config=self.json_config.conf_lst,
+                    list_index=list_index,
+                    kiss=self.kiss, heterogeneous_schema=self.heterogeneous_schema).json_dict
+
+                list_of_json.append(new_json)
+            key = f"{self.name}-{index}"
+            new_dict = {key: list_of_json}
+            final_json_dict.update(new_dict)
+
+        return final_json_dict
+
+    def generate_json_file(self, path: str):
+
+        time_start = time.time()
+        with open(path, mode='w', encoding='utf8') as file_handler:
+            file_handler.write(json.dumps(self.json_dict))
+
+        time_end = time.time()
+        duration_s = time_end - time_start
+        duration = time.strftime('%H:%M:%S', time.gmtime(duration_s))
+        print(f"Creation of {path} take {duration} - {duration_s:0.1f}(s)")
+
+
+class JsonDeepGenerator:
+
+    def __init__(self, name,
+                 config: ConfDeepJson,
+                 deep: int = 0,
+                 list_index: int = None,
+                 kiss: str = None,
+                 heterogeneous_schema: bool = True):
+
+        self.name = str(name)
+        self.config = config
+        self.deep = deep
+        self.list_index = list_index
+        self.kiss = kiss
+        self.heterogeneous_schema = heterogeneous_schema
+
+        # Create a list if it is not the last depth
+        if deep == 0:
+            self.config.nb_list = 0
+        else:
+            self.config.nb_list = 1
+
+    @property
+    def json_dict(self):
+        if self.kiss is None:
+            if self.list_index is None:
+                id_value = f"{self.name}"
+            else:
+                id_value = f"{self.name}L{self.list_index}"
+        else:
+            if self.list_index is None:
+                id_value = ""
+            else:
+                id_value = f"L{self.list_index}"
+
+        final_json_dict = {"id": id_value}
+        index = 0
+
+        # Randomize schema if needed
+        if self.heterogeneous_schema:
+            creation_nb_string = self.config.nb_string
+        else:
+            try:
+                creation_nb_string = random.randint(1, self.config.nb_string)
+            except ValueError:
+                creation_nb_string = self.config.nb_string
+
+        # Create Strings
+        for _ in range(creation_nb_string):
+            index += 1
+            final_json_dict.update(JsonString(self.name, index, index,
+                                              list_index=self.list_index,
+                                              kiss=self.kiss).json_dict)
+
+        # Create list of complex json
+        for _ in range(self.config.nb_list):
+            index += 1
+            list_of_json = []
+
+            for list_index in range(self.config.nb_list_elements):
+                new_json = JsonDeepGenerator(
+                    name=f"{self.name}{index}",
+                    config=self.config,
+                    deep=self.deep-1,
                     list_index=list_index,
                     kiss=self.kiss, heterogeneous_schema=self.heterogeneous_schema).json_dict
 

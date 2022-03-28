@@ -4,9 +4,9 @@ Usage sample of json generator to create massive files
 
 from json_generator import JsonGenerator, ConfJson
 
-NB_IN_LIST_1 = 5
-NB_IN_LIST_2 = 100
-NB_IN_LIST_3 = 1000
+NB_IN_LIST_1 = 500
+NB_IN_LIST_2 = 10000
+NB_IN_LIST_3 = 100000
 
 # Complexity 1
 C1_NB_ATTRIBUTES = 8
@@ -130,12 +130,11 @@ def make_3_complexity_files(nb_in_list: int, heterogeneous: bool = True,):
 
 if __name__ == '__main__':
 
-    # Non Heterogeneous
-    make_3_complexity_files(NB_IN_LIST_1, True)
-    make_3_complexity_files(NB_IN_LIST_2, True)
-    make_3_complexity_files(NB_IN_LIST_3, True)
-
-    # Non Heterogeneous
-    make_3_complexity_files(NB_IN_LIST_1, False)
-    make_3_complexity_files(NB_IN_LIST_2, False)
-    make_3_complexity_files(NB_IN_LIST_3, False)
+   # Non Heterogeneous
+   make_3_complexity_files(NB_IN_LIST_1, True)
+   make_3_complexity_files(NB_IN_LIST_2, True)
+   make_3_complexity_files(NB_IN_LIST_3, True)
+   # Non Heterogeneous
+   make_3_complexity_files(NB_IN_LIST_1, False)
+   make_3_complexity_files(NB_IN_LIST_2, False)
+   make_3_complexity_files(NB_IN_LIST_3, False)
