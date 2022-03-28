@@ -329,3 +329,5 @@ class JsonDeepGenerator:
         duration_s = time_end - time_start
         duration = time.strftime('%H:%M:%S', time.gmtime(duration_s))
         print(f"Creation of {path} take {duration} - {duration_s:0.1f}(s)")
+
+        # Todo save duration and file size somehow?
