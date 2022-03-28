@@ -94,7 +94,7 @@ class JsonObj(JsonElement):
     def __init__(self, prefix: int or str, number: int, index: int,
                  nbr_inside_list: int,
                  kiss=None,
-                 heterogeneous_schema: bool = True):
+                 homogeneous_schema: bool = True):
         if kiss is None:
             self.prefix = str(prefix)
         else:
@@ -104,7 +104,7 @@ class JsonObj(JsonElement):
         self.index = index
         self.nbr_inside_obj = nbr_inside_list
         self.kiss = kiss
-        self.heterogeneous_schema = heterogeneous_schema
+        self.homogeneous_schema = homogeneous_schema
 
     @property
     def json_dict(self):
@@ -117,7 +117,7 @@ class JsonObj(JsonElement):
         if self.kiss is None:
             value = JsonGenerator(f"{self.prefix}{self.number}",
                                   ConfJson(self.nbr_inside_obj),
-                                  heterogeneous_schema=self.heterogeneous_schema).json_dict
+                                  homogeneous_schema=self.homogeneous_schema).json_dict
         else:
             value = self.kiss
         new_dict = {key: value}
@@ -130,12 +130,12 @@ class JsonGenerator:
                  json_config: ConfJson,
                  list_index: int = None,
                  kiss: str = None,
-                 heterogeneous_schema: bool = True):
+                 homogeneous_schema: bool = True):
         self.name = str(name)
         self.json_config = json_config
         self.list_index = list_index
         self.kiss = kiss
-        self.heterogeneous_schema = heterogeneous_schema
+        self.homogeneous_schema = homogeneous_schema
 
     @property
     def json_dict(self):
@@ -156,7 +156,7 @@ class JsonGenerator:
         creation_nb_list = self.json_config.nb_list
 
         # Randomize schema if needed
-        if self.heterogeneous_schema:
+        if self.homogeneous_schema:
             creation_nb_string = self.json_config.nb_string
             creation_nb_obj = self.json_config.nb_obj
             creation_nb_json = self.json_config.nb_json
@@ -195,7 +195,7 @@ class JsonGenerator:
                 name=f"{self.name}{index}",
                 json_config=self.json_config.conf,
                 list_index=self.list_index,
-                kiss=self.kiss, heterogeneous_schema=self.heterogeneous_schema).json_dict
+                kiss=self.kiss, homogeneous_schema=self.homogeneous_schema).json_dict
 
             key = f"{self.name}-{index}"
             value = new_json
@@ -208,7 +208,7 @@ class JsonGenerator:
             list_of_json = []
 
             # Randomize schema if needed
-            if self.heterogeneous_schema:
+            if self.homogeneous_schema:
                 creation_nb_elements = self.json_config.nb_list_elements
             else:
                 try:
@@ -221,7 +221,7 @@ class JsonGenerator:
                     name=f"{self.name}{index}",
                     json_config=self.json_config.conf_lst,
                     list_index=list_index,
-                    kiss=self.kiss, heterogeneous_schema=self.heterogeneous_schema).json_dict
+                    kiss=self.kiss, homogeneous_schema=self.homogeneous_schema).json_dict
 
                 list_of_json.append(new_json)
             key = f"{self.name}-{index}"
@@ -249,14 +249,14 @@ class JsonDeepGenerator:
                  deep: int = 0,
                  list_index: int = None,
                  kiss: str = None,
-                 heterogeneous_schema: bool = True):
+                 homogeneous_schema: bool = True):
 
         self.name = str(name)
         self.config = config
         self.deep = deep
         self.list_index = list_index
         self.kiss = kiss
-        self.heterogeneous_schema = heterogeneous_schema
+        self.homogeneous_schema = homogeneous_schema
 
         # Create a list if it is not the last depth
         if deep == 0:
@@ -281,7 +281,7 @@ class JsonDeepGenerator:
         index = 0
 
         # Randomize schema if needed
-        if self.heterogeneous_schema:
+        if self.homogeneous_schema:
             creation_nb_string = self.config.nb_string
         else:
             try:
@@ -307,7 +307,7 @@ class JsonDeepGenerator:
                     config=self.config,
                     deep=self.deep-1,
                     list_index=list_index,
-                    kiss=self.kiss, heterogeneous_schema=self.heterogeneous_schema).json_dict
+                    kiss=self.kiss, homogeneous_schema=self.homogeneous_schema).json_dict
 
                 list_of_json.append(new_json)
             key = f"{self.name}-{index}"

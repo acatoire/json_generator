@@ -31,7 +31,7 @@ C3_NB_SUB_OBJ_ATTRIBUTES = 5
 
 
 def make_json(complexity_id,
-              kiss: str = None, heterogeneous: bool = True,
+              kiss: str = None, homogeneous: bool = True,
               nb_in_list: int = 5,
               nb_attributes: int = 10, nb_obj: int = 0,
               nb_obj_attributes: int = 0, nb_sub_obj: int = 0,
@@ -40,7 +40,7 @@ def make_json(complexity_id,
     Create a json depending on the parameters:
     :param complexity_id:
     :param kiss:
-    :param heterogeneous:
+    :param homogeneous:
     :param nb_in_list:
     :param nb_attributes:
     :param nb_obj:
@@ -83,7 +83,7 @@ def make_json(complexity_id,
 
     """
     kiss_str = "_k" if kiss else ""
-    heterogeneous_str = "_h" if heterogeneous else "_nh"
+    homogeneous_str = "_h" if homogeneous else "_nh"
 
     my_json = JsonGenerator(
         name=f"C{complexity_id}L{nb_in_list}",
@@ -95,16 +95,16 @@ def make_json(complexity_id,
                     nb_string=nb_obj_attributes,
                     nb_json=nb_sub_obj, conf=ConfJson(nb_string=nb_sub_obj_attributes)))
         ),
-        kiss=kiss, heterogeneous_schema=heterogeneous)
+        kiss=kiss, homogeneous_schema=homogeneous)
 
-    my_json.generate_json_file(f"generation/complexity{complexity_id}{kiss_str}{heterogeneous_str}_{nb_in_list}.json")
+    my_json.generate_json_file(f"generation/complexity{complexity_id}{kiss_str}{homogeneous_str}_{nb_in_list}.json")
 
 
-def make_3_complexity_files(nb_in_list: int, heterogeneous: bool = True,):
-    # Heterogeneous
+def make_3_complexity_files(nb_in_list: int, homogeneous: bool = True,):
+    # homogeneous
     make_json(
         complexity_id=1,
-        kiss='o', heterogeneous=heterogeneous,
+        kiss='o', homogeneous=homogeneous,
         nb_in_list=nb_in_list,
         nb_attributes=C1_NB_ATTRIBUTES, nb_obj=C1_NB_OBJ,
         nb_obj_attributes=C1_NB_OBJ_ATTRIBUTES, nb_sub_obj=C1_NB_SUB_OBJ,
@@ -112,7 +112,7 @@ def make_3_complexity_files(nb_in_list: int, heterogeneous: bool = True,):
     )
     make_json(
         complexity_id=2,
-        kiss='o', heterogeneous=heterogeneous,
+        kiss='o', homogeneous=homogeneous,
         nb_in_list=nb_in_list,
         nb_attributes=C2_NB_ATTRIBUTES, nb_obj=C2_NB_OBJ,
         nb_obj_attributes=C2_NB_OBJ_ATTRIBUTES, nb_sub_obj=C2_NB_SUB_OBJ,
@@ -120,7 +120,7 @@ def make_3_complexity_files(nb_in_list: int, heterogeneous: bool = True,):
     )
     make_json(
         complexity_id=3,
-        kiss='o', heterogeneous=heterogeneous,
+        kiss='o', homogeneous=homogeneous,
         nb_in_list=nb_in_list,
         nb_attributes=C3_NB_ATTRIBUTES, nb_obj=C3_NB_OBJ,
         nb_obj_attributes=C3_NB_OBJ_ATTRIBUTES, nb_sub_obj=C3_NB_SUB_OBJ,
@@ -130,11 +130,11 @@ def make_3_complexity_files(nb_in_list: int, heterogeneous: bool = True,):
 
 if __name__ == '__main__':
 
-   # Non Heterogeneous
+   # Non homogeneous
    make_3_complexity_files(NB_IN_LIST_1, True)
    make_3_complexity_files(NB_IN_LIST_2, True)
    make_3_complexity_files(NB_IN_LIST_3, True)
-   # Non Heterogeneous
+   # Non homogeneous
    make_3_complexity_files(NB_IN_LIST_1, False)
    make_3_complexity_files(NB_IN_LIST_2, False)
    make_3_complexity_files(NB_IN_LIST_3, False)
