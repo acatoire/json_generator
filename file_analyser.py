@@ -7,6 +7,7 @@ from os.path import isfile, join
 
 OUTPUT_PATH = "tmp/file_list.csv"
 
+
 def list_files(mypath):
 
     content = [f for f in listdir(mypath) if isfile(join(mypath, f))]
@@ -14,7 +15,7 @@ def list_files(mypath):
 
     with open(OUTPUT_PATH, mode='w', encoding='utf8') as result_file:
 
-        result_file.write("file_name, nb_arttributes, nb_objects_in_list, deep, schema, "
+        result_file.write("file_name, nb_attributes, nb_objects_in_list, deep, schema, "
                           "size(o),  size (ko), size (mo), nb_obj, nb_list")
 
         for file_name in content:
@@ -25,7 +26,7 @@ def list_files(mypath):
 
             info = file_name.replace("A", ";").replace("L", ";").replace("D", ";").replace("_", ";")
             info = info.split(';')
-            nb_arttributes = info[1]
+            nb_attributes = info[1]
             nb_objects_in_list = info[2]
             deep = info[3]
             schema = info[4]
@@ -34,7 +35,7 @@ def list_files(mypath):
                 nb_obj = file_content.count("id")
                 nb_list = file_content.count("[")
 
-            file_stat = (f"{file_name}, {nb_arttributes}, {nb_objects_in_list}, {deep}, {schema}, "
+            file_stat = (f"{file_name}, {nb_attributes}, {nb_objects_in_list}, {deep}, {schema}, "
                          f"{size}o,  {size/1024:0.1f}ko,   {size/1024/1024:0.1f}mo, {nb_obj}, {nb_list}")
 
             print(file_stat)
