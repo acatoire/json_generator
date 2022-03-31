@@ -5,19 +5,19 @@ Usage sample of json generator to create massive files
 from json_generator import ConfDeepJson, JsonDeepGenerator
 
 # Complexity 1
-C1_NB_ATTRIBUTES = 2
-C1_NB_LIST_ELEMENTS = 5
+C1_NB_ATTRIBUTES = 10
+C1_NB_LIST_ELEMENTS = 10
 C1_DEEP = 3
 
 # Complexity 2
-C2_NB_ATTRIBUTES = 5
-C2_NB_LIST_ELEMENTS = 20
-C2_DEEP = 10
+C2_NB_ATTRIBUTES = 20
+C2_NB_LIST_ELEMENTS = 10
+C2_DEEP = 3
 
 # Complexity 3
-C3_NB_ATTRIBUTES = 10
+C3_NB_ATTRIBUTES = 20
 C3_NB_LIST_ELEMENTS = 20
-C3_DEEP = 5
+C3_DEEP = 3
 
 
 def make_json(kiss: str = None, homogeneous: bool = True,
